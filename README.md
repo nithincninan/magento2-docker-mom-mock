@@ -11,11 +11,11 @@
 
     2. Create an database - mommock in docker container(mariadb_24).
 
-    3. db setup setting is already configured in pub/web/index.php
+    3. mom-mock db setting to magento24 is already configured in mom-mock/pub/web/index.php
 
-    4. Execute the .sql script in setup/db.sql
+    4. Execute the .sql script in mom-mock/setup/db.sql in db(mommock)
 
-    5. Go to app/etc/env.php and edit the following credentials:
+    5. Go to magento24/app/etc/env.php and edit the following credentials:
        
        ```
        'serviceBus' => [
