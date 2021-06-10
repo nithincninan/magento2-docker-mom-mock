@@ -5,8 +5,7 @@
 
 2. Configure the connector: https://omsdocs.magento.com/integration/connector/setup-tutorial/
 
-
-        ```
+        
         1. Add Magento OMS repo to Composer:
 
             https://omsdocs.magento.com/integration/connector/setup-tutorial/#add-magento-oms-repo-to-composer
@@ -35,8 +34,6 @@
          3. After the installation, run the following in the Magento folder:
             composer require magento/mcom-connector
             bin/magento setup:upgrade
-
-    ```
 
 3. Intergrate Magento 2.4.x Docker with Magento Order Management Mock:
 
