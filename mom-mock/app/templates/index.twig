@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+    {% block head %}
+        <link rel="stylesheet" href="/web/css/bootstrap.min.css" />
+        <link rel="stylesheet" href="/web/css/style.css" />
+        <title>Magenerds - Magento Order Management Mock</title>
+    {% endblock %}
+</head>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
+            <a class="navbar-brand icon-uniE001 logo" href="/">
+                Magenerds - MOM Mock
+            </a>
+            <ul id="navigation" class="navbar-nav mt-2 mt-lg-0">
+                <li class="nav-item" id="order">
+                    <a class="nav-link" href="/">Orders</a>
+                </li>
+                <li class="nav-item" id="product">
+                    <a class="nav-link" href="/product">Products</a>
+                </li>
+                <li class="nav-item" id="aggregate">
+                    <a class="nav-link" href="/aggregate">Stock aggregates</a>
+                </li>
+                <li class="nav-item" id="journal">
+                    <a class="nav-link" href="/journal">API Journal</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+<div class="container pt-3 pb-3">
+    {% block content %}{% endblock %}
+</div>
+<div class="fixed-bottom bg-dark">
+    <div class="container text-right pt-1 pb-1">
+        <a href="http://www.magenerds.com/" class="text-light"> &copy {{ "now"|date("Y") }} by Magenerds</a>
+    </div>
+</div>
+<script src="/web/js/bootstrap.min.js"></script>
+<script src="/web/js/app.js"></script>
+<script src="/web/js/buttonHandler.js"></script>
+</body>
+</html>
