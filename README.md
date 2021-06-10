@@ -3,8 +3,42 @@
 
 1. Magento 2.4.x Docker steps you can refer: https://github.com/nithincninan/magento2-docker
 
+2. Configure the connector: https://omsdocs.magento.com/integration/connector/setup-tutorial/
 
-2. Intergrate Magento 2.4.x Docker with Magento Order Management Mock:
+
+        ```
+        1. Add Magento OMS repo to Composer:
+
+            https://omsdocs.magento.com/integration/connector/setup-tutorial/#add-magento-oms-repo-to-composer
+
+                {
+                    "repositories": [
+                        {
+                            "type": "composer",
+                            "url": "https://mcom-connector.bcn.magento.com"
+                        }
+                    ]
+                }
+            
+        2. Add auth.json file: 
+
+             https://omsdocs.magento.com/integration/connector/setup-tutorial/#add-authjson-file
+                {
+                   "http-basic": {
+                      "mcom-connector.bcn.magento.com": {
+                          "username": "<public-key>",
+                          "password": "<private-key>"
+                    }
+                  }
+                }
+           
+         3. After the installation, run the following in the Magento folder:
+            composer require magento/mcom-connector
+            bin/magento setup:upgrade
+
+    ```
+
+3. Intergrate Magento 2.4.x Docker with Magento Order Management Mock:
 
 
     1. Goto mom-mock folder and run composer install (mom-mock is taken from https://github.com/Magenerds/mom-mock).
