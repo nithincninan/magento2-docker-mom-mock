@@ -10,7 +10,7 @@ services:
         ports:
             - 9001:9001
         volumes:
-            - ./mom-mock:/var/www/magento24/mom-mock:cached
+            - ./magento24/mom-mock:/var/www/magento24/mom-mock:cached
             - ./docker/php/mom-mock-www.conf:/usr/local/etc/php-fpm.d/mom-mock-www.conf
 
     php:
