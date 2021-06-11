@@ -34,21 +34,20 @@
            
          3. After the installation, run the following in the Magento folder:
             * composer require magento/mcom-connector --no-update
-            * Remove composer.lock/vendor folder and run composer install
+            * Remove composer.lock/vendor folder & run composer install
             * bin/magento setup:upgrade
 
 3. Integrate Magento 2.4.x Docker with Magento Order Management Mock:
 
 
-    1. Goto mom-mock folder and run composer install (mom-mock is taken from https://github.com/Magenerds/mom-mock).
+    1. Goto mom-mock folder & run composer install (mom-mock: https://github.com/Magenerds/mom-mock).
 
-    2. Create an database - mommock in docker container(mariadb_24).
+    2. Create a database - "mommock" in docker container(mariadb_24).
+        Note: mom-mock to magento24(db connection) is already configured in magento24/mom-mock/pub/web/index.php
 
-    3. mom-mock db setting to magento24 is already configured in mom-mock/pub/web/index.php
+    3. Execute the .sql script in magento24/mom-mock/setup/db.sql in db(mommock)
 
-    4. Execute the .sql script in mom-mock/setup/db.sql in db(mommock)
-
-    5. Go to magento24/app/etc/env.php and edit the following credentials:
+    4. Go to magento24/app/etc/env.php and edit the following credentials:
        
        ```
        'serviceBus' => [
