@@ -30,7 +30,6 @@
                     }
                   }
                 }
-           
 ```
 
 3. After the installation, run the following in the Magento folder:
