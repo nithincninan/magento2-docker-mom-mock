@@ -1,5 +1,6 @@
-# magento2-docker-mom-mock
-**Magento 2.4.x Docker + Magento Order Management Mock**
+# **Magento 2.4.x Docker + Magento Order Management Mock**
+
+**Magento 2.4.x Docker + Magento Order Management Mock - Services : Nginx 1.14, PHP 7.4-fpm-buster, Mariadb 10.4, mom_mock**
 
 1. Magento 2.4.x installation/Docker steps (refer): https://github.com/nithincninan/magento2-docker
 
