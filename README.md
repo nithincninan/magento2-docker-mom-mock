@@ -6,11 +6,9 @@
 
 2. Configure the connector: https://omsdocs.magento.com/integration/connector/setup-tutorial/
 
-1. Add Magento OMS repo to Composer:
+1. Add Magento OMS repo to Composer: [Read Here](https://omsdocs.magento.com/integration/connector/setup-tutorial/#add-magento-oms-repo-to-composer)
 
 ```
-            https://omsdocs.magento.com/integration/connector/setup-tutorial/#add-magento-oms-repo-to-composer
-
                 {
                     "repositories": [
                         {
@@ -21,9 +19,7 @@
                 }
 ```
 
-2. Add auth.json file: 
-
-             https://omsdocs.magento.com/integration/connector/setup-tutorial/#add-authjson-file
+2. Add auth.json file: [Read Here](https://omsdocs.magento.com/integration/connector/setup-tutorial/#add-authjson-file)
              
 ```
                 {
