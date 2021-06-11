@@ -6,9 +6,9 @@
 
 2. Configure the connector: https://omsdocs.magento.com/integration/connector/setup-tutorial/
 
-        
-        1. Add Magento OMS repo to Composer:
+1. Add Magento OMS repo to Composer:
 
+```
             https://omsdocs.magento.com/integration/connector/setup-tutorial/#add-magento-oms-repo-to-composer
 
                 {
@@ -19,10 +19,13 @@
                         }
                     ]
                 }
-            
-        2. Add auth.json file: 
+```
+
+2. Add auth.json file: 
 
              https://omsdocs.magento.com/integration/connector/setup-tutorial/#add-authjson-file
+             
+```
                 {
                    "http-basic": {
                       "mcom-connector.bcn.magento.com": {
@@ -32,6 +35,7 @@
                   }
                 }
            
+```
          3. After the installation, run the following in the Magento folder:
             * composer require magento/mcom-connector --no-update
             * Remove composer.lock/vendor folder & run composer install
