@@ -4,6 +4,20 @@
 
 1. Magento 2.4.x installation/Docker steps (refer): https://github.com/nithincninan/magento2-docker
 
+```
+    docker compose up -d
+    [+] Running 8/8
+     ⠿ Container mom_mock          Started                                                                                                                                                                                                 9.7s
+     ⠿ Container nginx_24          Started                                                                                                                                                                                                  18.9s
+     ⠿ Container rabbitmq_24       Started                                                                                                                                                                                                  14.2s
+     ⠿ Container mariadb_24        Started                                                                                                                                                                                                   5.4s
+     ⠿ Container elasticsearch_24  Started                                                                                                                                                                                                  11.1s
+     ⠿ Container redis_24          Started                                                                                                                                                                                                   3.3s
+     ⠿ Container php_24            Started                                                                                                                                                                                                   9.3s
+     ⠿ Container mail_24           Started
+
+```
+
 2. Configure the connector: https://omsdocs.magento.com/integration/connector/setup-tutorial/
 
 - 1. Add Magento OMS repo to Composer: [Read Here](https://omsdocs.magento.com/integration/connector/setup-tutorial/#add-magento-oms-repo-to-composer)
