@@ -32,19 +32,15 @@
                 }
 ```
 
-3. After the installation, run the following in the Magento folder:
+- 3. After the installation, run the following in the Magento folder:
 
  ```
- composer require magento/mcom-connector --no-update
- ```
- 
- Remove composer.lock/vendor folder and run composer install
- 
- ```
- bin/magento setup:upgrade
+ * composer require magento/mcom-connector --no-update
+ * Remove composer.lock/vendor folder and run composer install 
+ * bin/magento setup:upgrade
  ```
 
-4. Integrate Magento 2.4.x Docker with Magento Order Management Mock:
+3. Integrate Magento 2.4.x Docker with Magento Order Management Mock:
 
 
 - 1. Goto mom-mock folder & run composer install (mom-mock: https://github.com/Magenerds/mom-mock).
