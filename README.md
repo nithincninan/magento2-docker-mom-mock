@@ -6,11 +6,9 @@
 
 2. Configure the connector: https://omsdocs.magento.com/integration/connector/setup-tutorial/
 
-        
-        1. Add Magento OMS repo to Composer:
+- 1. Add Magento OMS repo to Composer: [Read Here](https://omsdocs.magento.com/integration/connector/setup-tutorial/#add-magento-oms-repo-to-composer)
 
-            https://omsdocs.magento.com/integration/connector/setup-tutorial/#add-magento-oms-repo-to-composer
-
+```
                 {
                     "repositories": [
                         {
@@ -19,10 +17,11 @@
                         }
                     ]
                 }
-            
-        2. Add auth.json file: 
+```
 
-             https://omsdocs.magento.com/integration/connector/setup-tutorial/#add-authjson-file
+- 2. Add auth.json file: [Read Here](https://omsdocs.magento.com/integration/connector/setup-tutorial/#add-authjson-file)
+             
+```
                 {
                    "http-basic": {
                       "mcom-connector.bcn.magento.com": {
@@ -31,25 +30,33 @@
                     }
                   }
                 }
-           
-         3. After the installation, run the following in the Magento folder:
-            * composer require magento/mcom-connector --no-update
-            * Remove composer.lock/vendor folder & run composer install
-            * bin/magento setup:upgrade
+```
 
-3. Integrate Magento 2.4.x Docker with Magento Order Management Mock:
+3. After the installation, run the following in the Magento folder:
+
+ ```
+ composer require magento/mcom-connector --no-update
+ ```
+ 
+ Remove composer.lock/vendor folder and run composer install
+ 
+ ```
+ bin/magento setup:upgrade
+ ```
+
+4. Integrate Magento 2.4.x Docker with Magento Order Management Mock:
 
 
-    1. Goto mom-mock folder & run composer install (mom-mock: https://github.com/Magenerds/mom-mock).
+- 1. Goto mom-mock folder & run composer install (mom-mock: https://github.com/Magenerds/mom-mock).
 
-    2. Create a database - "mommock" in docker container(mariadb_24).
-        Note: mom-mock to magento24(db connection) is already configured in magento24/mom-mock/pub/web/index.php
+- 2. Create a database - "mommock" in docker container(mariadb_24).
+Note: mom-mock to magento24(db connection) is already configured in magento24/mom-mock/pub/web/index.php
 
-    3. Execute the .sql script in magento24/mom-mock/setup/db.sql in db(mommock)
+- 3. Execute the .sql script in magento24/mom-mock/setup/db.sql in db(mommock)
 
-    4. Go to magento24/app/etc/env.php and edit the following credentials:
+- 4. Go to magento24/app/etc/env.php and edit the following credentials:
        
-       ```
+```
        'serviceBus' => [
             'url' => 'http://mom-mock.loc/',
             'oauth_server_url' => 'http://mom-mock.loc/',
@@ -59,11 +66,10 @@
             'secret' => 'mom',
             'secure_endpoint' => true
         ],
-       ```
+```
        
-    6. Run bin/magento setup:upgrade --keep-generated in your MDC instance to register your MDC instance to the MOM mock and to request your first OAuth token
+- 5. Run setup-upgrade in your MDC instance to register your MDC instance to the MOM mock and to request your first OAuth token
 
-
-
-
-
+```
+bin/magento setup:upgrade --keep-generated
+```
