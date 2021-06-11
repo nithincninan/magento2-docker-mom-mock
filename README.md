@@ -2,21 +2,62 @@
 
 **Magento 2.4.x Docker + Magento Order Management Mock - Services : Nginx 1.14, PHP 7.4-fpm-buster, Mariadb 10.4, mom_mock**
 
-1. Magento 2.4.x installation/Docker steps (refer): https://github.com/nithincninan/magento2-docker
+1. Magento 2.4.x installation/Docker steps:
 
 ```
-    docker compose up -d
-    [+] Running 8/8
-     ⠿ Container mom_mock          Started                                                                                                                                                                                                 9.7s
-     ⠿ Container nginx_24          Started                                                                                                                                                                                                  18.9s
-     ⠿ Container rabbitmq_24       Started                                                                                                                                                                                                  14.2s
-     ⠿ Container mariadb_24        Started                                                                                                                                                                                                   5.4s
-     ⠿ Container elasticsearch_24  Started                                                                                                                                                                                                  11.1s
-     ⠿ Container redis_24          Started                                                                                                                                                                                                   3.3s
-     ⠿ Container php_24            Started                                                                                                                                                                                                   9.3s
-     ⠿ Container mail_24           Started
-
+    1. Download and install docker desktop (windows/Mac)
+    
+    2. Build the docker Images:
+        docker compose build
+        docker compose up -d
+        
+    3. Add System variable in environmental settings SHELL=/bin/bash (windows)
+    
+    4. List all the containers(Make sure all the containers are present): 
+           docker compose ps
+    
+    5. Connect to php container: 
+           docker exec -it php_24 bash
+           
+           cd /var/www/magento24
+           Install Magento Instance in magento24 ( https://devdocs.magento.com/guides/v2.4/install-gde/composer.html )
+          
+          	    1. composer create-project --repository-url=https://repo.magento.com/ magento/project-enterprise-edition=2.4.2 m2-242
+          		    * enter your Magento authentication keys
+                2. mv m2-242/* .
+                3. rm -rf m2-242
+                
+    6. Install Command(from /var/www/magento24):
+       
+       php bin/magento setup:install \
+               --db-host=mariadb_24 \
+               --db-name=mage24_db \
+               --db-user=mage24_user \
+               --db-password=mage24_pass \
+               --base-url=http://magento24.loc/  \
+               --backend-frontname=admin \
+               --admin-user=admin \
+               --admin-password=admin123 \
+               --admin-email=nithincninan@gmail.com \
+               --admin-firstname=nithin \
+               --admin-lastname=ninan \
+               --language=en_US \
+               --currency=USD \
+               --timezone=America/Chicago \
+               --skip-db-validation \
+               --elasticsearch-host=elasticsearch_24 \
+               --elasticsearch-port=9200 \
+           && chown -R www-data:www-data .            
+           
+     7. Configure your hosts file: 127.0.0.1 magento24.loc
+        
+        In windows:- c:\Windows\System32\Drivers\etc\hosts.
+        Mac/Ubuntu:- /etc/hosts
+        
+     8. Open magento24.loc      
+         
 ```
+
 
 2. Configure the connector: https://omsdocs.magento.com/integration/connector/setup-tutorial/
 
