@@ -164,6 +164,22 @@
 bin/magento setup:upgrade --keep-generated
 ```
 
+- 6. Configure your hosts file: 127.0.0.1 mom-mock.loc
+        
+        In windows:- c:\Windows\System32\Drivers\etc\hosts.
+        Mac/Ubuntu:- /etc/hosts
+        
+- 7. Open http://mom-mock.loc/
+        * To compatible with latest php version(7.4), fix the below change:
+        
+        Error: use Deprecated: Unparenthesized `a ? b : c ? d : e` is deprecated. Use either `(a ? b : c) ? d : e` or `a ? b : (c ? d : e)` 
+        in /var/www/magento24/mom-mock/vendor/twig/twig/lib/Twig/Node.php on line 42
+        
+        Fix: 
+        * File: mom-mock/vendor/twig/twig/lib/Twig/Node.php
+        * change to ->(is_object($node) ? get_class($node) : null === $node) ? 'null' : gettype($node), $name, get_class($this)))
+        
+
 
 **For Performace tunning:**
 
@@ -189,9 +205,10 @@ bin/magento setup:upgrade --keep-generated
                 * Once CLI completes(setup:upgrade / di:compile / content:deploy).
                    * Go to local machine DIR - ({{LOCALHOST-DIR}}/magento2-docker-mom-mock/magento24) and run sync_24.sh
                    (sycn generated/pub-static directory from continer to host)
+                * docker exec -it php_24 bash then goto cd /var/www/magento24 and Run "chown -R www-data:www-data ."
                    
-           **Note: 
+                   
+           Note: 
             * Make sure what ever files modifying except(app/composer files) should be sync using "docker cp" command ( host->continer / vice versa ).
             * docker exec -it php_24 bash -> goto cd /var/www/magento24 -> Run "chown -R www-data:www-data ."
-            **
 ```
