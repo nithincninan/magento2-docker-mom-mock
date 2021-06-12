@@ -2,7 +2,7 @@
 
 **Magento 2.4.x Docker + Magento Order Management Mock - Services : Nginx 1.14, PHP 7.4-fpm-buster, Mariadb 10.4, mom_mock**
 
-1. Magento 2.4.x installation/Docker steps:
+**1. Magento 2.4.x installation/Docker steps:**
 
 ```
     1. Download and install docker desktop (windows/Mac)
@@ -54,7 +54,7 @@
                                --elasticsearch-port=9200 \
                            && chown -R www-data:www-data .
            
-                5. Cross check if ES is not configured, update the below setting in app/etc/env.php:
+                5. Cross check if ES is configured, if not update the below setting in app/etc/env.php:
              
                         'system' => [
                                 'default' => [
@@ -98,7 +98,7 @@
 ```
 
 
-2. Configure the connector: https://omsdocs.magento.com/integration/connector/setup-tutorial/
+**2. Configure the connector:** https://omsdocs.magento.com/integration/connector/setup-tutorial/
 
 - 1. Add Magento OMS repo to Composer: [Read Here](https://omsdocs.magento.com/integration/connector/setup-tutorial/#add-magento-oms-repo-to-composer)
 
@@ -134,7 +134,7 @@
  * bin/magento setup:upgrade
  ```
 
-3. Integrate Magento 2.4.x Docker with Magento Order Management Mock:
+**3. Integrate Magento 2.4.x Docker with Magento Order Management Mock:**
 
 
 - 1. Goto mom-mock folder & run composer install (mom-mock: https://github.com/Magenerds/mom-mock).
@@ -165,7 +165,7 @@ bin/magento setup:upgrade --keep-generated
 ```
 
 
-**For Performace tunning:** 
+**For Performace tunning:**
 
 ```
          
