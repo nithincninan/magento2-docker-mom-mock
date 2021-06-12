@@ -31,67 +31,69 @@
                 
                 3. rm -rf m2-242
                 
-    6. Install Command(from /var/www/magento24):
+                4. Install Command(from /var/www/magento24):
        
-       php bin/magento setup:install \
-               --db-host=mariadb_24 \
-               --db-name=mage24_db \
-               --db-user=mage24_user \
-               --db-password=mage24_pass \
-               --base-url=http://magento24.loc/  \
-               --backend-frontname=admin \
-               --admin-user=admin \
-               --admin-password=admin123 \
-               --admin-email=nithincninan@gmail.com \
-               --admin-firstname=nithin \
-               --admin-lastname=ninan \
-               --language=en_US \
-               --currency=USD \
-               --timezone=America/Chicago \
-               --skip-db-validation \
-               --elasticsearch-host=elasticsearch_24 \
-               --elasticsearch-port=9200 \
-           && chown -R www-data:www-data .
+                       php bin/magento setup:install \
+                               --db-host=mariadb_24 \
+                               --db-name=mage24_db \
+                               --db-user=mage24_user \
+                               --db-password=mage24_pass \
+                               --base-url=http://magento24.loc/  \
+                               --backend-frontname=admin \
+                               --admin-user=admin \
+                               --admin-password=admin123 \
+                               --admin-email=nithincninan@gmail.com \
+                               --admin-firstname=nithin \
+                               --admin-lastname=ninan \
+                               --language=en_US \
+                               --currency=USD \
+                               --timezone=America/Chicago \
+                               --use-rewrites=1 \
+                               --search-engine=elasticsearch7 \
+                               --elasticsearch-host=elasticsearch \
+                               --elasticsearch-port=9200 \
+                           && chown -R www-data:www-data .
            
-     7. Cross check if ES is not configured, update the below setting in app/etc/env.php:
-     
-        'system' => [
-                'default' => [
-                    'catalog' => [
-                        'search' => [
-                            'engine' => 'elasticsearch7',
-                            'elasticsearch7_server_hostname' => 'elasticsearch',
-                            'elasticsearch7_server_port' => '9200',
-                            'elasticsearch7_index_prefix' => 'magento24_index'
-                        ]
-                    ]
-                ]
-            ],
+                5. Cross check if ES is not configured, update the below setting in app/etc/env.php:
+             
+                        'system' => [
+                                'default' => [
+                                    'catalog' => [
+                                        'search' => [
+                                            'engine' => 'elasticsearch7',
+                                            'elasticsearch7_server_hostname' => 'elasticsearch',
+                                            'elasticsearch7_server_port' => '9200',
+                                            'elasticsearch7_index_prefix' => 'magento24_index'
+                                        ]
+                                    ]
+                                ]
+                            ],
            
-     8. Enable Developer Mode: php bin/magento deploy:mode:set developer
-     9. Make sure cache enabled : php bin/magento cache:enable
+                6. Enable Developer Mode: php bin/magento deploy:mode:set developer
+                
+                7. Make sure cache enabled : php bin/magento cache:enable
      
-     10. Configure Redis default/page caching
+                8. Configure Redis default/page caching
          
-         php bin/magento setup:config:set --cache-backend=redis --cache-backend-redis-server=redis --cache-backend-redis-port=6379 --cache-backend-redis-db=0
-         bin/magento setup:config:set --page-cache=redis --page-cache-redis-server=redis --page-cache-redis-db=1
+                     php bin/magento setup:config:set --cache-backend=redis --cache-backend-redis-server=redis --cache-backend-redis-port=6379 --cache-backend-redis-db=0
+                     bin/magento setup:config:set --page-cache=redis --page-cache-redis-server=redis --page-cache-redis-db=1
          
-     11. Configure Redis for session storage
+                9. Configure Redis for session storage
          
-         php bin/magento setup:config:set --session-save=redis --session-save-redis-host=redis --session-save-redis-port=6379 --session-save-redis-log-level=4 --session-save-redis-db=2
+                    php bin/magento setup:config:set --session-save=redis --session-save-redis-host=redis --session-save-redis-port=6379 --session-save-redis-log-level=4 --session-save-redis-db=2
      
-     12. Run the cli commands:                  
+                10. Run the cli commands:                  
      
-            * php bin/magento setup:upgrade
-            * php bin/magento setup:di:compile
-            * php -dmemory_limit=6G bin/magento setup:static-content:deploy -f
+                    * php bin/magento setup:upgrade
+                    * php bin/magento setup:di:compile
+                    * php -dmemory_limit=6G bin/magento setup:static-content:deploy -f
            
-     13. Configure your hosts file: 127.0.0.1 magento24.loc
+     6. Configure your hosts file: 127.0.0.1 magento24.loc
         
         In windows:- c:\Windows\System32\Drivers\etc\hosts.
         Mac/Ubuntu:- /etc/hosts
         
-     14. Open http://magento24.loc/ && http://magento24.loc/admin/
+     7. Open http://magento24.loc/ && http://magento24.loc/admin/
               
 ```
 
@@ -162,8 +164,10 @@ Note: mom-mock to magento24(db connection) is already configured in magento24/mo
 bin/magento setup:upgrade --keep-generated
 ```
 
+
+**For Performace tunning:** 
+
 ```
-    **For Performace tunning:** 
          
            1. Computer, Cores & RAM : 
            
@@ -173,20 +177,20 @@ bin/magento setup:upgrade --keep-generated
                 
            2. Use “delegated”/"cached" Volume Mounts for the files what is necessary for:
            
-                * Use docker-compose.dev.yaml: which will sync only app/composer files (Use after #1-#14):
+                * Use docker-compose.dev.yaml: which will sync only app/composer files (Use after #1-#7):
                 
                    * docker-compose -f docker-compose.dev.yml up -d
-                   * docker cp magento24 php_24:/var/www/
-                   * Enable the below options(docker-compose.dev.yml) and run : docker-compose -f docker-compose.dev.yml up -d
+                   * docker cp magento24 php_24:/var/www/ (move all m2 files to php_24 container)
+                   * Enable the below options(docker-compose.dev.yml) and run: docker-compose -f docker-compose.dev.yml up -d
                     - ./magento24/app:/var/www/magento24/app:delegated
                     - ./magento24/composer.json:/var/www/magento24/composer.json:delegated
                     - ./magento24/composer.lock:/var/www/magento24/composer.lock:delegated
-                   * docker exec -it php_24 bash and Run "chown -R www-data:www-data ." in /var/www/magento24 
+                   * docker exec -it php_24 bash then goto cd /var/www/magento24 and Run "chown -R www-data:www-data ."
                         
                         
                 * Once CLI completes(setup:upgrade / di:compile / content:deploy). 
-                   * Go to local machine DIR({{LOCALHOST-DIR}}/magento2-docker-mom-mock/magento24) and run sync_24.sh
-                   (sycn generated/pub-static directory from continer to host) 
+                   * Go to local machine DIR - ({{LOCALHOST-DIR}}/magento2-docker-mom-mock/magento24) and run sync_24.sh
+                   (sycn generated/pub-static directory from continer to host)
          
 
 ```
