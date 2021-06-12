@@ -170,6 +170,10 @@ bin/magento setup:upgrade --keep-generated
         Mac/Ubuntu:- /etc/hosts
         
 - 7. Open http://mom-mock.loc/
+
+```
+        * Connect with sales-channel refer: https://omsdocs.magento.com/integration/connector/setup-tutorial/#setup-sales-channel-id
+
         * To compatible with latest php version(7.4), fix the below change:
         
         Error: use Deprecated: Unparenthesized `a ? b : c ? d : e` is deprecated. Use either `(a ? b : c) ? d : e` or `a ? b : (c ? d : e)` 
@@ -178,7 +182,7 @@ bin/magento setup:upgrade --keep-generated
         Fix: 
         * File: mom-mock/vendor/twig/twig/lib/Twig/Node.php
         * change to ->(is_object($node) ? get_class($node) : null === $node) ? 'null' : gettype($node), $name, get_class($this)))
-        
+```        
 
 
 **For Performace tunning:**
