@@ -28,9 +28,7 @@
           		    * enter your Magento authentication keys
           		    
                 2. mv m2-242/* .
-                
                 3. rm -rf m2-242
-                
                 4. Install Command(from /var/www/magento24):
        
                        php bin/magento setup:install \
@@ -70,20 +68,15 @@
                             ],
            
                 6. Enable Developer Mode: php bin/magento deploy:mode:set developer
-                
                 7. Make sure cache enabled : php bin/magento cache:enable
-     
                 8. Configure Redis default/page caching
-         
                      php bin/magento setup:config:set --cache-backend=redis --cache-backend-redis-server=redis --cache-backend-redis-port=6379 --cache-backend-redis-db=0
                      bin/magento setup:config:set --page-cache=redis --page-cache-redis-server=redis --page-cache-redis-db=1
          
                 9. Configure Redis for session storage
-         
                     php bin/magento setup:config:set --session-save=redis --session-save-redis-host=redis --session-save-redis-port=6379 --session-save-redis-log-level=4 --session-save-redis-db=2
      
-                10. Run the cli commands:                  
-     
+                10. Run the cli commands:
                     * php bin/magento setup:upgrade
                     * php bin/magento setup:di:compile
                     * php -dmemory_limit=6G bin/magento setup:static-content:deploy -f
@@ -100,7 +93,7 @@
 
 **2. Configure the connector:** https://omsdocs.magento.com/integration/connector/setup-tutorial/
 
-- 1. Add Magento OMS repo to Composer: [Read Here](https://omsdocs.magento.com/integration/connector/setup-tutorial/#add-magento-oms-repo-to-composer)
+- 1. Add Magento OMS repo to m2 composer file: [Read Here](https://omsdocs.magento.com/integration/connector/setup-tutorial/#add-magento-oms-repo-to-composer)
 
 ```
                 {
@@ -126,23 +119,30 @@
                 }
 ```
 
-- 3. After the installation, run the following in the Magento folder:
+- 3. After the installation, run the following cmd's in php container:
 
  ```
+ * docker exec -it php_24 bash -> goto cd /var/www/magento24
  * composer require magento/mcom-connector --no-update
- * Remove composer.lock/vendor folder and run composer install 
- * bin/magento setup:upgrade
+ * Remove composer.lock/vendor folder and run composer install
  ```
 
 **3. Integrate Magento 2.4.x Docker with Magento Order Management Mock:**
 
 
 - 1. Goto mom-mock folder & run composer install (mom-mock: https://github.com/Magenerds/mom-mock).
+        php_24 container:
+        * cd mom-mock/ -> composer install
+        * cd /var/www/magento24 -> Run "chown -R www-data:www-data ."
+        * bin/magento setup:upgrade/setup:di:compile/setup:static-content:deploy
 
 - 2. Create a database - "mommock" in docker container(mariadb_24).
-Note: mom-mock to magento24(db connection) is already configured in magento24/mom-mock/pub/web/index.php
+        * docker exec -it php_24 bash -> mysql -h mariadb_24 -u root -p
+        * create database mommock; -> use mommock;
 
 - 3. Execute the .sql script in magento24/mom-mock/setup/db.sql in db(mommock)
+        * source /var/www/magento24/mom-mock/setup/db.sql
+        * Note: mom-mock to magento24(db connection) is already configured in magento24/mom-mock/pub/web/index.php
 
 - 4. Go to magento24/app/etc/env.php and edit the following credentials:
        
@@ -168,11 +168,9 @@ bin/magento setup:upgrade --keep-generated
 **For Performace tunning:**
 
 ```
-         
            1. Computer, Cores & RAM : 
            
                 * Local machine have alteast 16GB RAM
-                
                 * Docker > Preferences > Resources > Advanced : at least 4 or 5 CPUs and 8.0 GB RAM
                 
            2. Use “delegated”/"cached" Volume Mounts for the files what is necessary for:
@@ -188,9 +186,12 @@ bin/magento setup:upgrade --keep-generated
                    * docker exec -it php_24 bash then goto cd /var/www/magento24 and Run "chown -R www-data:www-data ."
                         
                         
-                * Once CLI completes(setup:upgrade / di:compile / content:deploy). 
+                * Once CLI completes(setup:upgrade / di:compile / content:deploy).
                    * Go to local machine DIR - ({{LOCALHOST-DIR}}/magento2-docker-mom-mock/magento24) and run sync_24.sh
                    (sycn generated/pub-static directory from continer to host)
-         
-
+                   
+           **Note: 
+            * Make sure what ever files modifying except(app/composer files) should be sync using "docker cp" command ( host->continer / vice versa ).
+            * docker exec -it php_24 bash -> goto cd /var/www/magento24 -> Run "chown -R www-data:www-data ."
+            **
 ```
