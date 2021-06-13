@@ -189,7 +189,7 @@ bin/magento setup:upgrade --keep-generated
 ```        
 
 
-**For Performace tunning(docker):** (optional)
+**For Performace tunning(docker):** (optional - either use #2 or #3)
 
 ```
            1. Computer, Cores & RAM : 
