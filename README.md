@@ -24,6 +24,8 @@
            
            * cd /var/www/magento24
            
+           * If its an existent project, clone project repository to the 'magento24', then update env.php and go to #8
+           
            * Install Magento Instance in magento24 ( https://devdocs.magento.com/guides/v2.4/install-gde/composer.html )
           
           	    1. composer create-project --repository-url=https://repo.magento.com/ magento/project-enterprise-edition=2.4.2 m2-242
